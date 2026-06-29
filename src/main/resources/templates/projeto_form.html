@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{cabecalho :: head}"></div>
+    <title>Crud Manager - Formulário Projeto</title>
+</head>
+<body>
+    <div class="container my-4">
+        <h2>Cadastro de Projeto</h2>
+        <form th:action="@{/projetos/save}" method="POST" th:object="${projeto}">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group col-6">
+                <label>Nome do Projeto:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                <input type="text" class="form-control" th:field="*{name}"> 
+            </div>
+            
+            <div class="form-group col-6">
+                <label>Descrição:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                <textarea class="form-control" th:field="*{description}"></textarea>
+            </div>
+            
+            <div class="form-group col-6">
+                <label>Orçamento (R$):</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}"></span>
+                <input type="number" step="0.01" class="form-control" th:field="*{budget}">
+            </div>
+               
+            <div class="form-group col-6">
+                <label>Empresa Responsável:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}"></span>
+                <select class="form-control" th:field="*{empresa}">
+                    <option value="">-- Selecione uma Empresa --</option>
+                    <option th:each="emp : ${empresas}" th:value="${emp.id}" th:text="${emp.name}"></option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-info ml-3">Salvar</button>
+        </form>
+        <hr>
+        <a th:href="@{/projetos}">Voltar para Projetos</a>
+    </div>
+</body>
+</html>

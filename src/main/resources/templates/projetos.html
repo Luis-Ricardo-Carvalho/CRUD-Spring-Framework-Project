@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{cabecalho :: head}"></div>
+    <title>Crud Manager - Projetos</title>
+</head>
+<body>
+    <div class="container my-4">
+        <h1>Projetos</h1>
+        <div>                
+            <a class="btn btn-primary btn-sm mb-3 float-right" th:href="@{/projetos/form}">Adicionar Projeto</a>
+        </div>
+        <table class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Nome do Projeto</th>
+                    <th>Descrição</th>
+                    <th>Orçamento</th>
+                    <th>Empresa Responsável</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="projeto : ${projetos}">
+                    <td th:text="${projeto.name}"></td>
+                    <td th:text="${projeto.description}"></td>
+                    <td th:text="'R$ ' + ${projeto.budget}"></td>
+                    <td th:text="${projeto.empresa.name}"></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/projetos/{id}(id=${projeto.id})}">Alterar</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/projetos/delete/{id}(id=${projeto.id})}">Excluir</a>            
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+		<div class="text-center my-3">
+		    <a th:href="@{/}" class="mx-2">Página Inicial</a> | 
+		    <a th:href="@{/users}" class="mx-2">Gerenciar Usuários</a> | 
+		    <a th:href="@{/empresas}" class="mx-2">Gerenciar Empresas</a> | 
+		    <a th:href="@{/projetos}" class="mx-2">Gerenciar Projetos</a>
+		</div>
+    </div>
+</body>
+</html>
